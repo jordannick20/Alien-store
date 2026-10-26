@@ -120,11 +120,8 @@ if (window.location.pathname.includes("Weapons.html")) {
             let src = img.getAttribute("src");
             let name = img.dataset.name;
 
-            showLoading();
-
-            setTimeout(() => {
-                window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-            }, 300);
+            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
+            
         });
     });
 }
@@ -155,7 +152,9 @@ if (window.location.pathname.includes("itempage.html")) {
         } else {
             window.location.href = "/index.html"; // fallback
         }
-        showLoading()   
+        showLoading()
+        
+
     });
 
     let params = new URLSearchParams(window.location.search);
@@ -167,6 +166,21 @@ if (window.location.pathname.includes("itempage.html")) {
     selectedPrice = price;
 
     document.getElementById("itempage-image").src = img;
+
+    let addtocartbutton = document.getElementById("addtocart")
+    addtocartbutton.addEventListener("click", () => {
+            localStorage.setItem(name, JSON.stringify({name, price, img}))
+    });
+
+if (window.location.pathname.includes("Checkout.html")) {
+    let item = JSON.parse(
+    localStorage.getItem(name)
+    )
+
+
+console.log(item.price);
+console.log(item.img);
+};
 
 if (name === "zombie-in-cage")
     document.getElementById("descriptcont").innerHTML =
